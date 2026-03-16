@@ -78,15 +78,20 @@ def check_win_v2(board, row, col, indicator):
 # Main 
 while True:
     board_print(board)
+
+    # Player turn Noti
     if turn == 0:
         print("Player 1 turn")
     else:
         print("Player 2 turn")
+    
+    # Player input & Data validation
     while True:
         selected_row = int(input("Enter the row: "))
         selected_column = int(input("Enter the column: "))
+
         if selected_row > 0 and selected_row <= num_row_column and selected_column > 0 and selected_column <= num_row_column:  # Data validation - within the board size
-            if board[selected_row - 1][selected_column - 1] == empty_cell_indicator:
+            if board[selected_row - 1][selected_column - 1] == empty_cell_indicator:   # Data validation - EMPTY CELL 
                 if turn == 0:
                     board[selected_row - 1][selected_column - 1] = "X"
                 else:
@@ -102,11 +107,11 @@ while True:
         if check_win_v2(board, selected_row - 1, selected_column - 1, "X"):
             board_print(board)
             print("Player 1 wins!")
-            break
+            break    # Exit main loop - Game end
     else:
         if check_win_v2(board, selected_row - 1, selected_column - 1, "O"):
             board_print(board)
             print("Player 2 wins!")
-            break
+            break    # Exit main loop - Game end
     
     turn = 1 - turn # Player round switch
