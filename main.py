@@ -24,27 +24,6 @@ def board_print(board):
             print(board[i][r], end=" ")
         print()
 
-## Check Win (V1) (NEED TO IMPROVE: 判断算法 尝试使用方向连续数判断)
-def check_win(board, turn):
-    # Define current player indicator
-    if turn == 0:
-        player_indicator = "X"
-    else:
-        player_indicator = "O"
-    # Check if the player has won
-    for i in range(num_row_column):
-        for r in range(num_row_column):
-            if board[i][r] == player_indicator:
-                # Horizontal Direction
-                if i + 4 < num_row_column:
-                    if board[i+1][r] == player_indicator and board[i+2][r] == player_indicator and board[i+3][r] == player_indicator and board[i+4][r] == player_indicator:
-                        return True
-                # Vertical Direction
-                if r + 4 < num_row_column:
-                    if board[i][r+1] == player_indicator and board[i][r+2] == player_indicator and board[i][r+3] == player_indicator and board[i][r+4] == player_indicator:
-                        return True
-    return False
-
 ## Check Win (V2)
 def check_win_v2(board, row, col, indicator):
     directions = [
