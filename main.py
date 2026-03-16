@@ -53,28 +53,26 @@ def check_win_v2(board, row, col, indicator):
         (1, 1),   # Right-down diagonal
         (1, -1)   # Left-down diagonal
     ]
-    
     for dr, dc in directions:
         count = 1  # Initial count
-        
+
         # Positive
         r, c = row + dr, col + dc
         while 0 <= r < len(board) and 0 <= c < len(board[0]) and board[r][c] == indicator:
             count += 1
             r += dr
             c += dc
-            
         # Negative
         r, c = row - dr, col - dc
         while 0 <= r < len(board) and 0 <= c < len(board[0]) and board[r][c] == indicator:
             count += 1
             r -= dr
             c -= dc
-            
+
         # Satisfy win condition: 5 in a row (or more)
         if count >= 5:
             return True
-            
+
     return False
 
 # Main 
@@ -98,4 +96,17 @@ while True:
                 print("This cell is already occupied") # Repeat loop - Input valid & Cell occupied
         else:
             print("Invalid input") # Repeat loop - Input invalid
+
+    # Check win
+    if turn == 0:
+        if check_win_v2(board, selected_row - 1, selected_column - 1, "X"):
+            board_print(board)
+            print("Player 1 wins!")
+            break
+    else:
+        if check_win_v2(board, selected_row - 1, selected_column - 1, "O"):
+            board_print(board)
+            print("Player 2 wins!")
+            break
+    
     turn = 1 - turn # Player round switch
