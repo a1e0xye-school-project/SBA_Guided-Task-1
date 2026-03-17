@@ -1,8 +1,35 @@
-# 25-26 G11 ICT SBA Guided Task 1
-## Gomoku Game 
+<img src="img/1.gif" width = "100" height = "100" alt="iamcooked" align=right />
+<div align="center">
 
-Python3+Pygame
+# Gomoku
+
+_25-26 G11 ICT SBA Guided Task 1_
+
+</div>
 
 ---
 
-Folder Struture:
+### Dependencies
+
+- Python3
+- tabulate>=0.9.0
+
+---
+
+### Setup
+
+Install Python dependencies:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+---
+
+### Run
+
+```bash
+python3 -m pip install -r requirements.txt
+python3 main.py
+```
+
