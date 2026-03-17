@@ -1,6 +1,7 @@
 # Dependencies
 try:
-    import tabulate  # type: ignore
+    from tabulate import tabulate  # type: ignore
+    from termcolor import colored, cprint  # type: ignore
 except ModuleNotFoundError as e:
     raise ModuleNotFoundError(
         "Missing dependency. Please follow instructions from README.md"
@@ -71,8 +72,15 @@ while True:
     
     # Player input & Data validation
     while True:
-        selected_row = int(input("Enter the row: "))
-        selected_column = int(input("Enter the column: "))
+        while True:
+            selected_row = input("Enter the row: ")
+            selected_column = input("Enter the column: ")
+            if selected_row == '' or selected_column == '':   # Input nothing
+                print("Invalid, Please enter agian")
+            else:
+                selected_column = int(selected_column)
+                selected_row = int(selected_row)
+                break
 
         if selected_row > 0 and selected_row <= num_row_column and selected_column > 0 and selected_column <= num_row_column:  # Data validation - within the board size
             if board[selected_row - 1][selected_column - 1] == empty_cell_indicator:   # Data validation - EMPTY CELL 
