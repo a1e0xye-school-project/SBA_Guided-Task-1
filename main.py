@@ -1,5 +1,10 @@
-# env.
-
+# Dependencies
+try:
+    import tabulate  # type: ignore
+except ModuleNotFoundError as e:
+    raise ModuleNotFoundError(
+        "Missing dependency. Please follow instructions from README.md"
+    ) from e
 
 # Varaiable
 turn = 0
@@ -94,3 +99,5 @@ while True:
             break    # Exit main loop - Game end
     
     turn = 1 - turn # Player round switch
+
+    print("\033c", end="") # Clean console (ANSI Escape Codes)
