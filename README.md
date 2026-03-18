@@ -13,6 +13,7 @@ _25-26 G11 ICT SBA Guided Task 1_
 
 - Python3
 - tabulate>=0.9.0
+- termcolor>=2.4.0
 
 ---
 
