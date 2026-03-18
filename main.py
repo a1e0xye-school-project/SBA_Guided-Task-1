@@ -29,6 +29,7 @@ def board_print(board):
         for r in range(num_row_column):
             print(board[i][r], end=" ")
         print()
+    print("\n")
 
 ## Check Win (V2)
 def check_win_v2(board, row, col, indicator):
@@ -62,14 +63,16 @@ def check_win_v2(board, row, col, indicator):
 
 # Main 
 while True:
-    board_print(board)
+    print("\033c", end="") # Clean console (ANSI Escape Codes)
 
     # Player turn Noti
     if turn == 0:
-        cprint("Player 1 turn", "green", "on_red")
+        cprint("Player 1 turn \n", "green", "on_red")
     else:
-        cprint("Player 2 turn", "red", "on_green")
+        cprint("Player 2 turn \n", "red", "on_green")
     
+    board_print(board)
+
     # Player input & Data validation
     while True:
         while True:
@@ -107,5 +110,3 @@ while True:
             break    # Exit main loop - Game end
     
     turn = 1 - turn # Player round switch
-
-    print("\033c", end="") # Clean console (ANSI Escape Codes)
