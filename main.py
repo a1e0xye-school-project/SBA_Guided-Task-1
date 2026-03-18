@@ -66,9 +66,9 @@ while True:
 
     # Player turn Noti
     if turn == 0:
-        print("Player 1 turn")
+        cprint("Player 1 turn", "green", "on_red")
     else:
-        print("Player 2 turn")
+        cprint("Player 2 turn", "red", "on_green")
     
     # Player input & Data validation
     while True:
