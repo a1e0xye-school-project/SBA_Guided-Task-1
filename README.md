@@ -17,16 +17,6 @@ _25-26 G11 ICT SBA Guided Task 1_
 
 ---
 
-### Setup
-
-Install Python dependencies:
-
-```bash
-python3 -m pip install -r requirements.txt
-```
-
----
-
 ### Run
 
 ```bash
