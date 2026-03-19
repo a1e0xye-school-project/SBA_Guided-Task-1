@@ -9,7 +9,9 @@ except ModuleNotFoundError as e:
 
 # Varaiable
 turn = 0
-empty_cell_indicator = "*"
+empty_cell_indicator = " "
+player_1_indicator = "●"
+player_2_indicator = "○"
 
 board = []
 num_row_column = 15 # Board Size
@@ -64,13 +66,14 @@ def check_win_v2(board, row, col, indicator):
 # Main 
 while True:
     print("\033c", end="") # Clean console (ANSI Escape Codes)
-
+    
     # Player turn Noti
     if turn == 0:
-        cprint("Player 1 turn \n", "green", "on_red")
+        cprint("Player 1 turn \n", "green", attrs=["bold"])
+        print("Your piece is: ", player_1_indicator)
     else:
-        cprint("Player 2 turn \n", "red", "on_green")
-    
+        cprint("Player 2 turn \n", "red", attrs=["bold"])
+        print("Your piece is: ", player_2_indicator)
     board_print(board)
 
     # Player input & Data validation
@@ -88,9 +91,9 @@ while True:
         if selected_row > 0 and selected_row <= num_row_column and selected_column > 0 and selected_column <= num_row_column:  # Data validation - within the board size
             if board[selected_row - 1][selected_column - 1] == empty_cell_indicator:   # Data validation - EMPTY CELL 
                 if turn == 0:
-                    board[selected_row - 1][selected_column - 1] = "X"
+                    board[selected_row - 1][selected_column - 1] = player_1_indicator
                 else:
-                    board[selected_row - 1][selected_column - 1] = "O"
+                    board[selected_row - 1][selected_column - 1] = player_2_indicator
                 break  # Exit inner loop - input valid & finish replacing the cell
             else:
                 print("This cell is already occupied") # Repeat loop - Input valid & Cell occupied
@@ -99,12 +102,12 @@ while True:
 
     # Check win
     if turn == 0:
-        if check_win_v2(board, selected_row - 1, selected_column - 1, "X"):
+        if check_win_v2(board, selected_row - 1, selected_column - 1, player_1_indicator):
             board_print(board)
             print("Player 1 wins!")
             break    # Exit main loop - Game end
     else:
-        if check_win_v2(board, selected_row - 1, selected_column - 1, "O"):
+        if check_win_v2(board, selected_row - 1, selected_column - 1, player_2_indicator):
             board_print(board)
             print("Player 2 wins!")
             break    # Exit main loop - Game end
