@@ -81,19 +81,19 @@ while True:
     # Player turn Noti
     if turn == 0:
         cprint("Player 1 turn \n", "green", attrs=["bold"])
-        print("Your piece is: ", player_1_indicator)
+        cprint("Your piece is: " +player_1_indicator, "magenta", attrs=["bold"])
     else:
         cprint("Player 2 turn \n", "red", attrs=["bold"])
-        print("Your piece is: ", player_2_indicator)
+        cprint("Your piece is: " +player_2_indicator, "magenta", attrs=["bold"])
     board_print(board)
 
     # Player input & Data validation
     while True:
         while True:
-            selected_row = input("Enter the row: ")
-            selected_column = input("Enter the column: ")
+            selected_row = input(colored("Enter the row: ", "blue", attrs=["bold"]))
+            selected_column = input(colored("Enter the column: ", "blue", attrs=["bold"]))
             if selected_row == '' or selected_column == '':   # Input nothing
-                print("Invalid, Please enter agian")
+                cprint("You type nothing!!! Try again, please.", "red", attrs=["bold"])
             else:
                 selected_column = int(selected_column)
                 selected_row = int(selected_row)
@@ -107,22 +107,22 @@ while True:
                     board[selected_row - 1][selected_column - 1] = player_2_indicator
                 break  # Exit inner loop - input valid & finish replacing the cell
             else:
-                print("This cell is already occupied") # Repeat loop - Input valid & Cell occupied
+                cprint("This cell is already occupied", "red", attrs=["bold"]) # Repeat loop - Input valid & Cell occupied
         else:
-            print("Invalid input") # Repeat loop - Input invalid
+            cprint("Invalid input", "red", attrs=["bold"]) # Repeat loop - Input invalid
 
     # Check win
     if turn == 0:
         if check_win_v2(board, selected_row - 1, selected_column - 1, player_1_indicator):
             print("\033c", end="")
             board_print(board)
-            print("Player 1 wins!")
+            cprint("Player 1 wins!", "green", attrs=["bold"])
             break    # Exit main loop - Game end
     else:
         if check_win_v2(board, selected_row - 1, selected_column - 1, player_2_indicator):
             print("\033c", end="")
             board_print(board)
-            print("Player 2 wins!")
+            cprint("Player 2 wins!", "green", attrs=["bold"])
             break    # Exit main loop - Game end
     
     turn = 1 - turn # Player round switch
