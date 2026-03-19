@@ -114,11 +114,13 @@ while True:
     # Check win
     if turn == 0:
         if check_win_v2(board, selected_row - 1, selected_column - 1, player_1_indicator):
+            print("\033c", end="")
             board_print(board)
             print("Player 1 wins!")
             break    # Exit main loop - Game end
     else:
         if check_win_v2(board, selected_row - 1, selected_column - 1, player_2_indicator):
+            print("\033c", end="")
             board_print(board)
             print("Player 2 wins!")
             break    # Exit main loop - Game end
