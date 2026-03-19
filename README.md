@@ -1,11 +1,12 @@
-<img src="img/1.gif" width = "100" height = "100" alt="iamcooked" align=right />
 <div align="center">
 
-# Gomoku
+# **Gomoku**
 
-_25-26 G11 ICT SBA Guided Task 1_
+### Ciallo～(∠・ω< )⌒★
 
-Ciallo～(∠・ω< )⌒★
+<img src="img/1.gif" width = "200" height = "200" alt="iamcooked" align=center />
+
+#### 25-26 G11 ICT SBA Guided Task 1
 
 </div>
 
