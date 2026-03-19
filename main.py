@@ -23,15 +23,26 @@ for i in range(num_row_column):
 # Function
 ## Board Print
 def board_print(board):
+    headers = [" "]
+    for i in range(1, num_row_column + 1):
+        headers.append(str(i))
+
+    rows = []
     for i in range(num_row_column):
-        print(i, end=" ")
+        row = [str(i + 1)]
+        for cell in board[i]:
+            row.append(cell)
+        rows.append(row)
+    print(
+        tabulate(
+            rows,
+            headers=headers,
+            tablefmt="rounded_grid",
+            stralign="center",
+            numalign="center",
+        )
+    )
     print()
-    for i in range(num_row_column):
-        print(i+1,end=" ")
-        for r in range(num_row_column):
-            print(board[i][r], end=" ")
-        print()
-    print("\n")
 
 ## Check Win (V2)
 def check_win_v2(board, row, col, indicator):
