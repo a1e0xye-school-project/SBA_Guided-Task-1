@@ -131,5 +131,12 @@ while True:
             board_print(board)
             cprint("Player 2 wins!", "green", attrs=["bold"])
             break    # Exit main loop - Game end
-    
+
+    # Check the board whether is full or not.
+    if is_board_full(board):
+        print("\033c", end="")
+        board_print(board)
+        cprint("Board Full. No winner.", "yellow", attrs=["bold"])
+        break
+
     turn = 1 - turn # Player round switch
