@@ -101,10 +101,17 @@ while True:
             selected_column = input(colored("Enter the column: ", "blue", attrs=["bold"]))
             if selected_row == '' or selected_column == '':   # Input nothing
                 cprint("You type nothing!!! Try again, please.", "red", attrs=["bold"])
+                continue
+            selected_row = selected_row.strip() # Remove the whitespace
+            selected_column = selected_column.strip()
+            if selected_column.isdigit() and selected_row.isdigit():
+                if selected_column != '' and selected_row != '':
+                    selected_column = int(selected_column)
+                    selected_row = int(selected_row)
+                    break
             else:
-                selected_column = int(selected_column)
-                selected_row = int(selected_row)
-                break
+                cprint("Invalid input", "red", attrs=["bold"])
+                continue
 
         if selected_row > 0 and selected_row <= num_row_column and selected_column > 0 and selected_column <= num_row_column:  # Data validation - within the board size
             if board[selected_row - 1][selected_column - 1] == empty_cell_indicator:   # Data validation - EMPTY CELL 
