@@ -74,6 +74,13 @@ def check_win_v2(board, row, col, indicator):
 
     return False
 
+# Board Full Check
+def is_board_full(board):
+    for row in board:
+        if empty_cell_indicator in row:
+            return False
+    return True
+
 # Main 
 while True:
     print("\033c", end="") # Clean console (ANSI Escape Codes)
