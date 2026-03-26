@@ -25,8 +25,19 @@
 ### Run
 
 > [!IMPORTANT]
-> Some library are required. So please run the program with the command below!
+> Some library are required. Install them before running the program.
+> `pip` may need be changed to `pip3`. Check it.
 
+#### Run by install dependencies mannually
+Use `pip install` install the following library:
+
+- tabulate
+    - `pip install tabulate` or follow instruction in library pages
+- termcolor
+    - `pip install termcolor` or follow instruction in library pages
+
+
+#### Run by commmand
 ```bash
 python3 -m pip install -r requirements.txt
 python3 main.py

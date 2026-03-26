@@ -1,3 +1,7 @@
+# Gomoku Game 
+# 25-26 ICT SBA Guided Task 1
+# Library required: tabulate, termcolor
+
 # Dependencies
 try:
     from tabulate import tabulate  # type: ignore
@@ -93,7 +97,6 @@ while True:
         cprint("Player 2 turn \n", "red", attrs=["bold"])
         cprint("Your piece is: " +player_2_indicator, "magenta", attrs=["bold"])
     board_print(board)
-
     # Player input & Data validation
     while True:
         while True:
