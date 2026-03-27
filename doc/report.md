@@ -98,3 +98,48 @@ except ModuleNotFoundError as e:
 The `try` block lets us test a block of code for errors. When there is error, the `except` block lets us handle the error. In this project, this help us to show a notice message to user when the program unsuccessfully import library.
 
 ---
+
+## Modular approach
+
+The program added different function, as specific function will be used frequntly. To define they as a function, the main loop can be more simple, as it reduce repeated code in it.
+
+By using `def`, we could define our module function. Let `def func(number)` be a example, `func` is the function name, `number` is the value that passed into the function.
+
+In this project, these following operation will be use function to archive 【】.
+
+### `board_print(board)`
+
+This function is to print the gomoku board to terminal.
+
+```python
+# Ln 29-49
+def board_print(board):
+    headers = [" "]
+    for i in range(1, num_row_column + 1):
+        headers.append(str(i))
+
+    rows = []
+    for i in range(num_row_column):
+        row = [str(i + 1)]
+        for cell in board[i]:
+            row.append(cell)
+        rows.append(row)
+    print(
+        tabulate(
+            rows,
+            headers=headers,
+            tablefmt="rounded_grid",
+            stralign="center",
+            numalign="center",
+        )
+    )
+    print()
+```
+
+[START - **need to improve**]
+
+The function will first create an empty array `headers`, and then use a `for-loop` to add [row column] number into it. And then `rows` is created as a 2D array for all rows, the row number will be added at the first of each row.
+
+The 2D array `rows` will be printed out as a formatted table by using `tabulate`, after the row and column number has been added into array `rows`. As mentioned in the previous part, the format of the table and text align can be changed by replacing the value of `tablefmt`,`stralign`,`numalign`.
+
+[END - **need to improve**]
