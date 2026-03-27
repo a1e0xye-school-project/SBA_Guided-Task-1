@@ -4,7 +4,7 @@
 
 ### Ciallo～(∠・ω< )⌒★
 
-<img src="img/1.gif" width = "200" height = "200" alt="iamcooked" align=center />
+<img src="doc/img/1.gif" width = "200" height = "200" alt="iamcooked" align=center />
 
 #### 25-26 G11 ICT SBA Guided Task 1
 
