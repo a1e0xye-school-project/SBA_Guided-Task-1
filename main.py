@@ -108,11 +108,10 @@ while True:
                 continue    # Jump to next loop: Input again
             selected_row = selected_row.strip() # Remove the whitespace
             selected_column = selected_column.strip()
-            if selected_column.isdigit() and selected_row.isdigit():
-                if selected_column != '' and selected_row != '':
-                    selected_column = int(selected_column)
-                    selected_row = int(selected_row)
-                    break
+            if selected_column.isdigit() and selected_row.isdigit():  # Check the strings only contain digit number
+                selected_column = int(selected_column)
+                selected_row = int(selected_row)
+                break
             else:
                 cprint("Invalid input", "red", attrs=["bold"])
                 continue
