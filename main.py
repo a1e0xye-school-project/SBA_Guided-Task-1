@@ -97,6 +97,7 @@ while True:
         cprint("Player 2 turn \n", "red", attrs=["bold"])
         cprint("Your piece is: " +player_2_indicator, "magenta", attrs=["bold"])
     board_print(board)
+
     # Player input & Data validation
     while True:
         while True:
@@ -104,7 +105,7 @@ while True:
             selected_column = input(colored("Enter the column: ", "blue", attrs=["bold"]))
             if selected_row == '' or selected_column == '':   # Input nothing
                 cprint("You type nothing!!! Try again, please.", "red", attrs=["bold"])
-                continue
+                continue    # Jump to next loop: Input again
             selected_row = selected_row.strip() # Remove the whitespace
             selected_column = selected_column.strip()
             if selected_column.isdigit() and selected_row.isdigit():
@@ -134,19 +135,19 @@ while True:
             print("\033c", end="")
             board_print(board)
             cprint("Player 1 wins!", "green", attrs=["bold"])
-            break    # Exit main loop - Game end
+            break    # Exit main loop - Game end with one win
     else:
         if check_win_v2(board, selected_row - 1, selected_column - 1, player_2_indicator):
             print("\033c", end="")
             board_print(board)
             cprint("Player 2 wins!", "green", attrs=["bold"])
-            break    # Exit main loop - Game end
+            break    # Exit main loop - Game end with one win
 
     # Check the board whether is full or not.
     if is_board_full(board):
         print("\033c", end="")
         board_print(board)
         cprint("Board Full. No winner.", "yellow", attrs=["bold"])
-        break
+        break    # Exit main loop - Game end with noone win
 
     turn = 1 - turn # Player round switch
