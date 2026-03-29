@@ -39,6 +39,8 @@ The for-loop add the `empty_cell_indicator` into all cell of the board, with the
 
 ## External Library 
 
+> **Note**: In this project, external libraries do not directly affect the main logic; they only serve to improve the game experience. Even if they are removed (the relevant functions are replaced), the project will still run according to the expected logical flow.
+
 Library can help us archive specific function, it can (make the code easy simple, strc more clear). Library can be easily install to computer by `pip install`, and `import` to the code. 
 
 In this project, the following library is used.
@@ -105,7 +107,7 @@ The program added different function, as specific function will be used frequntl
 
 By using `def`, we could define our module function. Let `def func(number)` be a example, `func` is the function name, `number` is the value that passed into the function.
 
-In this project, these following operation will be use function to archive 【】.
+In this project, The following logic will be defined as functions to achieve reuse.
 
 ### `board_print(board)`
 
@@ -136,10 +138,297 @@ def board_print(board):
     print()
 ```
 
-[START - **need to improve**]
-
-The function will first create an empty array `headers`, and then use a `for-loop` to add [row column] number into it. And then `rows` is created as a 2D array for all rows, the row number will be added at the first of each row.
+The function will first create an empty array `headers`, and then use a `for-loop` to add row/column number into it. And then `rows` is created as a 2D array for all rows, the row number will be added at the first of each row.
 
 The 2D array `rows` will be printed out as a formatted table by using `tabulate`, after the row and column number has been added into array `rows`. As mentioned in the previous part, the format of the table and text align can be changed by replacing the value of `tablefmt`,`stralign`,`numalign`.
 
-[END - **need to improve**]
+### `check_win_v2(board, row, col, indicator)`
+
+This function is to check for a winning condition after each player's move, where a player wins if they align five of their symbols consecutively in a row, column, or diagonal (According to the game features).
+
+```python
+# Ln 52-79
+def check_win_v2(board, row, col, indicator):
+    directions = [
+        (0, 1),   # Horizontal
+        (1, 0),   # Vertical
+        (1, 1),   # Right-down diagonal
+        (1, -1)   # Left-down diagonal
+    ]
+    for dr, dc in directions:
+        count = 1  # Initial count
+
+        # Positive
+        r, c = row + dr, col + dc
+        while 0 <= r < len(board) and 0 <= c < len(board[0]) and board[r][c] == indicator:
+            count += 1
+            r += dr
+            c += dc
+        # Negative
+        r, c = row - dr, col - dc
+        while 0 <= r < len(board) and 0 <= c < len(board[0]) and board[r][c] == indicator:
+            count += 1
+            r -= dr
+            c -= dc
+
+        # Satisfy win condition: 5 in a row (or more)
+        if count >= 5:
+            return True
+
+    return False
+```
+
+`direction` stores the increase/decrease step for both the row index and the column index when the program checks for a winning line. In the list `directions = [(0, 1), (1, 0), (1, 1), (1, -1)]`, each pair `(dr, dc)` represents one possible direction on the board:  
+- `(0, 1)` means move horizontally to the right (row does not change, column +1 each step),  
+- `(1, 0)` means move vertically downwards (row +1 each step, column does not change),  
+- `(1, 1)` means move diagonally down-right (row +1 and column +1 each step),  
+- `(1, -1)` means move diagonally down-left (row +1 and column -1 each step).  
+
+For each `direction`, the function first moves in the "positive" direction (adding `dr` and `dc` to the current position) and counts how many same pieces are connected. Then it moves in the "negative" direction (subtracting `dr` and `dc` from the current position) to count the connected pieces on the opposite side. By using these `direction` steps, the function can scan along a straight line in all four possible directions and decide whether there are 5 or more same pieces in a row starting from the latest move.
+
+### `is_board_full(board)`
+
+This function is to check the cells in game board is all filled or not.
+
+```python
+# Ln 82-86
+def is_board_full(board):
+    for row in board:
+        if empty_cell_indicator in row:
+            return False
+    return True
+```
+
+It use for-loop to to find empty cell in a row, if found, it mean the game board are not all filled yet, so a boolean value "False" will be return (Meaning that the board are not full). If it finished searching for empty cell in row, but still cannot found, a "True" will be return to tell that the game board is full, and the game reaches a stalemate.
+
+---
+
+## Scope of Variables and Parameters Passing
+
+### Global scope
+
+Global variables are available from within any scope, global and local.
+
+Global variables in this program are listed below:
+
+| Variable | Type of Scope | Purpose |
+|---|---|---|
+| `turn` | Global | Stores whose turn it is (`0` for Player 1, `1` for Player 2) |
+| `empty_cell_indicator` | Global | Symbol used to represent an empty cell on the game board |
+| `player_1_indicator` | Global | Symbol used by Player 1 |
+| `player_2_indicator` | Global | Symbol used by Player 2 |
+| `board` | Global | 2D array that stores all game board cell and  moves |
+| `num_row_column` | Global | Board size |
+
+
+### Local scope
+
+A variable created inside a function belongs to the local scope of that function, and can only be used inside that function.
+
+Local variables in this program are listed below:
+
+| Function | Local Variable(s) | Purpose |
+|---|---|---|
+| `check_win_v2(board, row, col, indicator)` | `directions`, `dr`, `dc`, `count`, `r`, `c` | Used temporarily to scan all four directions and count number of same symbol to check the win condition |
+| `board_print(board)` | `headers`, `rows`, `i`, `row`, `cell` | Used temporarily to print the game board with formatted table by using tabulate |
+| `is_board_full(board)` | `row`,`board` | Used to traverse all cell in the game board to find empty cell. |
+
+Local variables can help each function stay independent, reduces accidental variable conflicts with main, and improves readability and maintainability. A local variable in a function can also use `gloabl` to make the variable global.
+
+
+### Parameter Passing
+
+Parameter passing means sending values into a function when excuting the function so it can use those values inside the function. In this program, functions receive data such as the game board, player selected cell position, and player indicator through parameters. The function wont affect the original value outside the module. This makes the functions reusable, same function can work with differnt inputted with the same processing logic, and without declaring variables again.
+
+Parameter passing in this program are listed below:
+
+| Function | Parameters | Notes |
+|---|---|---|
+| `board_print(board)` | `board` | Passes the current game board so the function can display the latest game board in a formatted table to players. |
+| `check_win_v2(board, row, col, indicator)` | `board`, `row`, `col`, `indicator` | Passes all data needed (Current game board, the cell where player chosen at this round, the indicator for the player) to check whether the player met the win condition (5-in-a-row in any direction) |
+| `is_board_full(board)` | `board` | Passes the current game board so to check the board is filled or not. |
+
+Parameter passing in this project improves modular design, it ake each function has their own specific responsibility and only receives necessary data without affecting variables outside it.
+
+
+---
+
+## Interface of the Program
+
+This project is a **text-based interface**. The user only need to run `main.py` (Specific librarys are required to install in advance). This project do not offer graphic windows, all text input/output are printed in terminal with keyboard input, no mouse clicking required.
+
+### Runtime dependencies
+
+The program required two libraries to run
+- `termcolor` and `tabulate`
+
+If these library are not installed, the program will raise a `ModuleNotFoundError` and print a message to tell the user to follow instructions to run this code.
+
+### Input interface
+
+Player need to enter their chosen cell's row and column number in **two separate lines** of input. Example be like:
+
+```
+Enter the row:
+Enter the column:
+```
+
+This two message are printed in blue and bold, to better distinguish between program output and user input.
+
+Coordinates of cell are in number, including both row and column. As `input()` cannot limit what type of data can user type in. The expected input data type is digits only(within the board size). Empty input(Submit without typing anything in), non-numeric input, value that exceeded the board size, or chosen an occupied cell should all be labelled as invalid input. Therefore, a while loop was used to allow the user to keep retrying input until a valid value was entered.
+
+### Output interface
+
+By using ANSI Escape code (`\033c`), the terminal can be cleaned in each turn,so the player wont see the old game board and messages that affect the gaming experience. 
+
+The interface show these element:
+
+| Output element | Description |
+| --- | --- |
+| Turn banner | “Player 1 turn” (show in green) or “Player 2 turn” (show in red), followed by the piece symbol (from `player_1_indicator` or `player_2_indicator`) that player uses. |
+| Game Board | Game board printed by using formmated table library `tabulate`, with row and column number at top and left side. Empty cells appear as a space (default, but actually can be changed by replacing the value in `empty_cell_indicator`); Occupied cells show the player's symbol who selected this cell. |
+| Error messages | (Appear when error occur) Messages are show in red bold colour when the inputted value are not in expected format (Empty, invalid, out of range, or the cell is occupied). |
+| End states | When a player met the win condition or the game board are filled, the terminal will clean and show the final game board. A bold message will announces the result (“Player 1 wins!"/“Player 2 wins!”, or “Board Full. No winner.”). |
+
+---
+
+## Data Collection, Input and Validation
+
+**Data collection** in this project is to read the player’s move from the keyboard in each turn. **Validation** is to check the input is valid and safe to continue that wont occur a run-time error. As `input()` return a string value, the program must check it is in digits only, if not, the program will return a error when excuting `int()`. We cannot guarantee that player only type in what the program want, they may type in a whitespace, a chinese name, a "@", etc.. So, it is important to do validation.
+
+### Step 1 — Read raw input
+
+Each move uses two `input()`: `Enter the row:` and `Enter the column:`. The program will receive two strings. In this step, the program only **collects** data, without checking the data.
+
+```python
+# Ln 104-105
+selected_row = input(colored("Enter the row: ", "blue", attrs=["bold"]))
+selected_column = input(colored("Enter the column: ", "blue", attrs=["bold"]))
+if selected_row == '' or selected_column == '':   # Input nothing
+    cprint("You type nothing!!! Try again, please.", "red", attrs=["bold"])
+    continue   # Jump to next loop: Input again
+selected_row = selected_row.strip() # Remove the whitespace
+selected_column = selected_column.strip()
+```
+| Item | Detail |
+| --- | --- |
+| Source | `input()` |
+| Data type | `str` (Always) |
+| Special case | If one of the returned string is empty (`''`)(The player submit without type in anything ) **before** doing the `strip()`, the program return the error message ("You type nothing") and ask the player to input again. |
+| After collecting | By using`strip()`, the leading/trailing whitespace in value stored in `selcted_row`and `selected_column` will be removed. >>> **Example**: `" 3 "` will be changed to `"3"`, so it become a digit only value, safe to continue processing. |
+
+### Step 2 — Format and type checks
+
+After stripping, the program requires both strings to be **digits only** (`isdigit()` help us to verify). If that passes, both values will be converted to `'int'` variables. If that not passed, meaning the strings contain non-digit, a error message ("invalid input") will be printed and the player will be asked to enter again.
+
+```python
+# Ln 111-117
+if selected_column.isdigit() and selected_row.isdigit():  # Check the strings only contain digit number
+    selected_column = int(selected_column)
+    selected_row = int(selected_row)
+    break
+else:
+    cprint("Invalid input", "red", attrs=["bold"])
+    continue
+```
+
+| Validation rule | Actions |
+| --- | --- |
+| Both strings are digit only(`isdigit()` returned `True`) | Both values will convert to `int` type and the inner input loop can exit. |
+| Otherwise | Print error message “Invalid input”. Then, let the player to enter tha number of row and column again. |
+
+### Step 3 — Range and board rules
+
+After converting to two `int` variables, the program checks they are within the board size (From **1** to **`num_row_column`**), if not, a error message ("Invalid input") will be printed and let the player to input agian. If the value is within the board size, it then check the player selected cell on the game board, only if the cell is empty, the program place the current player’s piece at that cell. If the cell is occupied, the program will tell the player the cell selected is already occupied and allow the player to choose another one.
+
+```python
+# Ln 119-129
+if selected_row > 0 and selected_row <= num_row_column and selected_column > 0 and selected_column <= num_row_column:  # Data validation - within the board size
+    if board[selected_row - 1][selected_column - 1] == empty_cell_indicator:   # Data validation - EMPTY CELL 
+        if turn == 0:
+            board[selected_row - 1][selected_column - 1] = player_1_indicator
+        else:
+            board[selected_row - 1][selected_column - 1] = player_2_indicator
+        break  # Exit inner loop - input valid & finish replacing the cell
+    else:
+        cprint("This cell is already occupied", "red", attrs=["bold"]) # Repeat loop - Input valid & Cell occupied
+else:
+    cprint("Invalid input", "red", attrs=["bold"]) # Repeat loop - Input invalid
+```
+
+| Validation rule | Notes |
+| --- | --- |
+| `1 <= row <= num_row_column`| Make sure the selected cell is in the baord (Within board size) |
+| `board[selected_row-1][selected_column-1] == empty_cell_indicator` | Prevent overwriting another player chosen cell. |
+
+Together, the nested `while True` can let player **“repeat input until valid”** : "Unlimited chance to input."
+
+
+---
+
+## Data Processing
+
+After the inputted data passed validation, the program will then **process** the move. 
+
+The main stages each turn are listed below.
+
+| Stages | Notes |
+| --- | --- |
+| Place move | [Ln 122, 124] Write `player_1_indicator` or `player_2_indicator` into the chosen cell in `board`. |
+| Win check | [Ln 133, 139] Calls `check_win_v2(board, row_index, col_index, indicator)` to check if the move created five or more in a line in any of four directions (horizontal, vertical, two diagonals) |
+| Draw check | [Ln 146] If in stage "Win check" returned the player have'nt win yet, then call `is_board_full(board)` to check if any empty cell remains in the game board. If no remaining empty cell, the game reaches a stalemate. |
+| Turn switch | If the game continues (No one win & The board are not all filled), flips `turn` with `turn = 1 - turn` so the other player moves next (Alternates 0 and 1) |
+
+**Data structures:** Cells in the game board are stored in a **2D list** (list of rows, each row a list of cell values). Row/column indices used with `board` are start from 0, while user input is start from 1, so the program have to subtract 1 when indexing.
+
+---
+
+## Program Output
+
+Output is everything that players can only **sees** in the terminal when playing this game. Output should be clear and simple, so that players can understant how to play&continue the game. In this project, all outputs are produced by `print`, `tabulate`, `cprint`, and also prompts in `input`.
+
+| Stage | Output contents |
+| --- | --- |
+| Start of each turn | Clean terminal console (By using ANSI Escape code), current player turn message and player's piece reminder. The formatted game board table are followed. |
+| Invalid input | Print error message in red&bold. New row and column input will be show followed to let player input again. |
+| Player wins | The terminal will be cleaned. Then print the final game board, and win message for the correct player. |
+| Board full, no winner |  The terminal will be cleaned. The final game board, “Board Full. No winner.” will be printed. |
+
+### Example:
+> Player selecting cell on the board
+> ![example_player-input](/doc/img/example_player-input.jpeg)
+
+> One player has win the game (Win condition: 5 in a row)
+> ![example_player-win](/doc/img/example_player-win.jpeg)
+
+The **primary** output for game is the **formmated game board table**. The player only know how to make the next move by checking the game board. A neat and aesthetically pleasing game board can enhance the gaming experience, so using `tabulate` ensures it is output with proper formatting and spacing.
+
+---
+
+## Reusability and Portability
+
+**Reusability** means parts of the program can be reused without rewriting everything again. In this project, `board_print`, `check_win_v2`, and `is_board_full` are separated from the main loop to define as a function so that the same logic can be called from different places. Only the value passes into the function have to change, but different data can be process in the same logic
+
+**Portability** means the program can run on different machines (The run-time environment have to meet the requirements)
+
+| Requirement | Notes |
+| --- | --- |
+| Python 3 | Stated in `README.md` |
+| `tabulate`, `termcolor` | Listed in `requirements.txt` & Stated in `README.md`; User have to install them via `pip install / pip3 install`. to run the program. |
+| Terminal with ANSI support | Terminal cleaning and colours assume a typical terminal; Very limited environments may not show colours normally or may cannot recognize the ANSI escape codes. |
+
+This program is written in Python 3.14.3, as python have cross-platform capabilities, it allowed it operate on any operating system that have a compatible Python interpreter.
+
+> **IT RUN ON MY MACHINE**:
+> The program run tests on macOS Tahoe 26.4 R.C.(25E241) with Python 3.14.3(homebrew)
+
+---
+
+## Discussion & Conclusion
+
+
+---
+
+
+## Reference
+
