@@ -1,6 +1,6 @@
 # Project Report
 
-By a1e0xye 2026/3-2026/4
+By a1e0xye | 2026/3-2026/4
 
 > [!NOTE]
 > Status: In Progress.
@@ -426,9 +426,32 @@ This program is written in Python 3.14.3, as python have cross-platform capabili
 
 ## Discussion & Conclusion
 
+This project implements the Gomoku game by using Python 3, with the primary goal of achieving the intended game flow in a command-line environment. By defining codes that have to use repeatdly into different functions, the main loop can have a simple struction, makeing further development easier. In this project, we can not guarantee that player follow the our expected way to play the game, the data validation part help us solve this problem. By checking non-empty & datatype & range & rules, invalid input can be discarded and let the user to input again until the input is valid. This ensures that the program will not terminate due to errors and that occupied cells will not be replaced. Different libraries is used to enhance the game experience, like `tabulate` use formatted table to enhance the readability of the game board, `termcolor` help better identification and differentiation of information. By counting the number of consecutive pieces in the four directions surrounding the final placement position, the program achieves a more efficient algorithm and reduces the number of traversals.
+
+
+### Future Development Outlook
+
+The project is current are on two-player matches and does not include human-vs-machine gameplay. The interface relies on terminal interface, so color rendering and screen clearing may vary across different environments. 
+
+Future project refactoring could be pursued in the following areas:
+
+1. Player vs. Machine (PvM): Utilize an API to request a model to response, let the AI to make decisions by providing the current game board. To avoid issues with API unavailability, it is recommended to allow players to select the preferred match mode (PvP / PvM) before starting, while also include a status check for the API before selecting.
+2. Graphical User Interface (GUI): Render the game board as a clickable grid, it can be add more elements like music, animations, and a timer. Standalone window can be provided in GUI, no more terminal.
 
 ---
 
+## References
 
-## Reference
+Library used in this project:
+- Tabulate
+    - https://github.com/astanin/python-tabulate
+- Termcolor
+    - https://github.com/termcolor/termcolor
 
+ANSI Escape codes / clean console:
+- ANSI Escape Code. (n.d.). Wikipedia. https://en.wikipedia.org/wiki/ANSI_escape_code
+- What does printf(“\033c” ) mean? (n.d.). Stack Overflow. https://stackoverflow.com/questions/47503734/what-does-printf-033c-mean
+
+Markdown
+- Basic writing and formatting syntax: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
+- GFM: https://github.github.com/gfm/
