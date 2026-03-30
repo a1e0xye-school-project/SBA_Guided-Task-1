@@ -17,11 +17,11 @@ By a1e0xye | 2026/3-2026/4
 | Name | Type | Initial value | Notes |
 | --- | --- | --- | --- |
 | `turn` | variable | 0 [Ln 15]| Recorded which player's turn currently. The value will be 0 or 1, as the represent of player 1 or 2 |
-| `empty_cell_indicator` | constant | (Customize value) [Ln 16]| When the cell on the board is empty, the board will show this value as it indicate a empty cell. |
-| `player_1_indicator` | constant | (Customize value) [Ln 17] | The indicator for player 1. It will show on the board cell if the player selected the cell. It should be different from player 2. |
-| `player_2_indicator` | constant | (Customize value) [Ln 18] | The indicator for player 2. It will show on the board cell if the player selected the cell. It should be different from player 1. 
+| `empty_cell_indicator` | constant | (Custom value) [Ln 16]| When the cell on the board is empty, the board will show this value as it indicate a empty cell. |
+| `player_1_indicator` | constant | (Custom value) [Ln 17] | The indicator for player 1. It will show on the board cell if the player selected the cell. It should be different from player 2. |
+| `player_2_indicator` | constant | (Custom value) [Ln 18] | The indicator for player 2. It will show on the board cell if the player selected the cell. It should be different from player 1. 
 | `board` | 2D List | Filled with `empty_cell_indicator` [Ln 20-25] | Stored all cell value.
-| `num_row_column` | constant | (Customize value) [Ln 21] | The value determine the size of the board (if num_row_column = 15, then the board will have 15 rows and columns). The board size can be easily changed by change the value of this varibale.
+| `num_row_column` | constant | (Custom value) [Ln 21] | The value determine the size of the board (if num_row_column = 15, then the board will have 15 rows and columns). The board size can be easily changed by change the value of this varibale.
 
 ### Initialization of 2D array
 ```python
@@ -178,13 +178,14 @@ def check_win_v2(board, row, col, indicator):
     return False
 ```
 
-`direction` stores the increase/decrease step for both the row index and the column index when the program checks for a winning line. In the list `directions = [(0, 1), (1, 0), (1, 1), (1, -1)]`, each pair `(dr, dc)` represents one possible direction on the board:  
-- `(0, 1)` means move horizontally to the right (row does not change, column +1 each step),  
-- `(1, 0)` means move vertically downwards (row +1 each step, column does not change),  
-- `(1, 1)` means move diagonally down-right (row +1 and column +1 each step),  
-- `(1, -1)` means move diagonally down-left (row +1 and column -1 each step).  
+`direction` stores the increase/decrease step for both the row and the column when the program checks for a winning line. In the list `directions = [(0, 1), (1, 0), (1, 1), (1, -1)]`, each pair `(dr, dc)` represents one possible direction on the board:  
 
-For each `direction`, the function first moves in the "positive" direction (adding `dr` and `dc` to the current position) and counts how many same pieces are connected. Then it moves in the "negative" direction (subtracting `dr` and `dc` from the current position) to count the connected pieces on the opposite side. By using these `direction` steps, the function can scan along a straight line in all four possible directions and decide whether there are 5 or more same pieces in a row starting from the latest move.
+- `(0, 1)` : Move horizontally to the right (ROW: No change ; COLUMN: +1 each step)
+- `(1, 0)` : Move vertically downwards (ROW: +1 each step ; COLUMN: No change)
+- `(1, 1)` : Move diagonally down-right (ROW: +1 ; COLUMN: +1 each step)
+- `(1, -1)` : Move diagonally down-left (ROW: +1 each step ; COLUMN: -1 each step)
+
+For each direction, the function first moves to the "positive" direction (adding `dr` and `dc` to the current position) and counts how many same pieces are connected. Then it moves to the "negative" direction (subtracting `dr` and `dc` from the current position) to count the connected pieces on the opposite side. By using these `direction` steps, the function can scan along a straight line in all four possible directions and count same pieces number in a row starting from the latest move and then decide whether the player have met the win condtion or not.
 
 ### `is_board_full(board)`
 
