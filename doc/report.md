@@ -7,7 +7,33 @@ By a1e0xye | 2026/3-2026/4
 
 ---
 
+## Introduction
+
+Gomoku Game, also named as 5-in-a-row. With a typical board size of 15x15. Two players are involved in this game, where one of them using “X” or “O” as represent their dice on the board. When there are 5 same dice in a row (including vertical, horizontal or diagonal), the player wins the game. But if the cell in the board in filled, then no one wins the game as no one archived the win condition.
+
+This program is coded using Python 3, which is a common program language nowadays. Under simple text-based interface, the game board is in the terminal, and players can make them decision by typing in their selected cell’s row and column number. The program will then check the row and column number inputted whether is valid or not, or even the cell selected is occupied or not. Finally, player’s dice will be placed on the board and switched to other players turn to continue.
+
+In this project report, more detailed will be explained. Enjoy???
+
+
+---
+
+## Game features
+
+-	Game Board: Represent the Gomoku board as a grid of a size typically 15x15, where each cell can be either empty, occupied by 'X', or occupied by 'O'.
+-	Player Turns: Implement the game logic to alternate between the 'X' and 'O' players, allowing each player to place a stone by selecting an empty cell on the board.
+-	Win Conditions: Check for a winning condition after each move, where a player wins if they align five of their symbols (X or O) consecutively in a row, column, or diagonal.
+-	Draw Condition: Detect when the game reaches a stalemate, if all cells on the board are filled and neither player has achieved a winning condition.
+-	User Interface: Provide a simple text-based user interface for players to interact with the game, which includes displaying the current board state and allowing players to enter their moves.
+-	Input Validation: Ensure that the user's input is valid by checking if the selected cell is empty and falls within the valid range of the board.
+-	Game Loop: Implement a game loop that continues until a winner is declared or the game ends in a stalemate.
+
+---
+
 ## Program logic flow overview
+
+The following flow chart illustrates the logic flow of the game. Program are coded based on this logic flow.
+
 ![logicflow](/doc/img/prog-logic-flow.jpg)
 
 ---
@@ -395,7 +421,7 @@ Output is everything that players can only **sees** in the terminal when playing
 | Player wins | The terminal will be cleaned. Then print the final game board, and win message for the correct player. |
 | Board full, no winner |  The terminal will be cleaned. The final game board, “Board Full. No winner.” will be printed. |
 
-### Example:
+### Example Ouput Screenshots
 > Player selecting cell on the board
 > ![example_player-input](/doc/img/example_player-input.jpeg)
 
@@ -615,3 +641,15 @@ ANSI Escape codes / clean console:
 Markdown
 - Basic writing and formatting syntax: https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 - GFM: https://github.github.com/gfm/
+
+---
+
+<div align="center">
+
+#### **- END OF THIS REPORT -**
+
+It is not the end of learning, not the end of the DSE, not the end of life, and certainly not the end of suffering.
+
+Thank you!
+
+</div>
