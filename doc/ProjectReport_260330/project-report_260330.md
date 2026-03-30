@@ -1,8 +1,6 @@
 # Project Report
 
-By a1e0xye | 2026/3-2026/4
-
-> In Progress. | Latest update: 2026/03/30 MD->PDF
+By Alex (@a1e0xye) | 2026/3-2026/4
 
 ---
 
@@ -421,11 +419,11 @@ Output is everything that players can only **sees** in the terminal when playing
 | Board full, no winner |  The terminal will be cleaned. The final game board, “Board Full. No winner.” will be printed. |
 
 ### Example Ouput Screenshots
-> Player selecting cell on the board
-> ![example_player-input](https://a1e0xye-sch-prj-ict-sba-t1-sync.pages.dev/doc/img/example_player-input.jpeg)
 
-> One player has win the game (Win condition: 5 in a row)
-> ![example_player-win](https://a1e0xye-sch-prj-ict-sba-t1-sync.pages.dev/doc/img/example_player-win.jpeg)
+| Player selecting cell on the board | one player has win the game (Win condition: 5 in a row) |
+| --- | --- |
+| ![example_player-input](https://a1e0xye-sch-prj-ict-sba-t1-sync.pages.dev/doc/img/example_player-input.jpeg) | ![example_player-win](https://a1e0xye-sch-prj-ict-sba-t1-sync.pages.dev/doc/img/example_player-win.jpeg) | 
+
 
 The **primary** output for game is the **formmated game board table**. The player only know how to make the next move by checking the game board. A neat and aesthetically pleasing game board can enhance the gaming experience, so using `tabulate` ensures it is output with proper formatting and spacing.
 
